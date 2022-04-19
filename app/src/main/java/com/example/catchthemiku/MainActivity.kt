@@ -13,7 +13,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity() {
-    var score = 0
+    private var score = 0
     var imageArray = ArrayList<ImageView>()
     var handler = Handler()
     var runnable = Runnable { }
@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity() {
                 val alert = AlertDialog.Builder(this@MainActivity)
                 alert.setTitle("Vaxt bitdi")
                 alert.setMessage("Yenidən başlayaq? :D")
-                alert.setPositiveButton("Aha"){dialog, which ->
+                alert.setPositiveButton("Hə"){dialog, which ->
                     //Restart main activity
                     val intent = intent
                     finish()
@@ -65,18 +65,16 @@ class MainActivity : AppCompatActivity() {
 
     }
     //Animation 2#
-    fun hideImages(){
+    private fun hideImages(){
 
-        runnable = object : Runnable{
-            override fun run() {
-                for (image in imageArray){
-                    image.visibility = View.INVISIBLE
-                }
-                var random = Random()
-                var randomIndex = random.nextInt(9)
-                imageArray[randomIndex].visibility = View.VISIBLE
-                handler.postDelayed(runnable, 500)
+        runnable = Runnable {
+            for (image in imageArray){
+                image.visibility = View.INVISIBLE
             }
+            var random = Random()
+            var randomIndex = random.nextInt(9)
+            imageArray[randomIndex].visibility = View.VISIBLE
+            handler.postDelayed(runnable, 500)
         }
         handler.post(runnable)
     }
